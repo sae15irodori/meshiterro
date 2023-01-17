@@ -1,0 +1,21 @@
+<!--ﾕｰｻﾞｰの詳細情報-->
+<div>
+  <h3><%= @user.name %></h3><!--ユーザーの名前を表示する-->
+  <%= image_tag @user.get_profile_image(100,100) %><!--ﾌﾟﾛﾌｨｰﾙ画像-->
+</div>
+
+
+<!--ﾕｰｻﾞｰの投稿一覧-->
+
+<% @post_images.each do |post_image| %><!--ﾕｰｻﾞｰの全投稿を順に取り出して格納-->
+<div>
+  <%= link_to post_image_path(post_image.id) do %><!--投稿したものの詳細ページへ-画像クリックすると飛べる->
+    <%= image_tag post_image.get_image %><!--投稿した画像をget_imageﾒｿｯﾄﾞで取得-->
+  <% end %><!--リンク終了-->
+
+  <P>投稿ﾕｰｻﾞｰ画像<%= image_tag post_image.user.get_profile_image(100,100) %></P>
+  <p>ショップ名： <%= post_image.shop_name %></p>
+  <p>説明： <%= post_image.caption %></p>
+  <P>ユーザーネーム： <%= post_image.user.name %></P>
+</div>
+<% end %>
