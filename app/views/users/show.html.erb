@@ -2,6 +2,10 @@
 <div>
   <h3><%= @user.name %></h3><!--ユーザーの名前を表示する-->
   <%= image_tag @user.get_profile_image(100,100) %><!--ﾌﾟﾛﾌｨｰﾙ画像-->
+  
+  <% if @user.id == current_user.id %>
+    <p><%= link_to "プロフィール編集", edit_user_path(@user.id) %></p>
+  <% end %>
 </div>
 
 
@@ -13,7 +17,7 @@
     <%= image_tag post_image.get_image %><!--投稿した画像をget_imageﾒｿｯﾄﾞで取得-->
   <% end %><!--リンク終了-->
 
-  <P>投稿ﾕｰｻﾞｰ画像<%= image_tag post_image.user.get_profile_image(100,100) %></P>
+  <P>投稿ユーザー画像:<%= image_tag post_image.user.get_profile_image(100,100) %></P>
   <p>ショップ名： <%= post_image.shop_name %></p>
   <p>説明： <%= post_image.caption %></p>
   <P>ユーザーネーム： <%= post_image.user.name %></P>

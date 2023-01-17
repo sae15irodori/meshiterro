@@ -6,7 +6,7 @@
   
   <p>説明：<%= @post_image.caption %></p><!--特定IDの説明文を表示-->
   
-  <p>投稿ユーザー画像：<%= image_tag 'sample-author1.jpg' %></p>
+  <p>投稿ユーザー画像：<%= image_tag @post_image.user.get_profile_image(100,100) %></p>
   
   <p>ユーザーネーム：<%= @post_image.user.name %></p><!--特定IDと結びつくuserモデルのnameカラムを表示-->
  
@@ -14,6 +14,6 @@
   
   
   <% if @post_image.user == current_user %><!--もし投稿者がﾛｸﾞｲﾝ中のﾕｰｻﾞｰだったら-->
-    <%= link_to "削除", post_image_path(@post_image), method: :delete %>
-  <% end %><!--@post_image.idじゃないの？-->
+    <%= link_to "削除", post_image_path(@post_image.id), method: :delete %>
+  <% end %>
 </div>

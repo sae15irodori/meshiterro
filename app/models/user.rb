@@ -5,8 +5,11 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :post_images, dependent: :destroy#post_imagesﾃｰﾌﾞﾙとｱｿｼｴｰｼｮﾝ
+  has_many :post_comments, dependent: :destroy#コメントﾃｰﾌﾞﾙとｱｿｼｴｰｼｮﾝ
+
 
   has_one_attached :profile_image#profile_imageという名前でｱｸﾃｨﾌﾞｽﾄﾚｰｼﾞでﾌﾟﾛﾌｨﾙ画像保存できる
+
 
   def get_profile_image(width, height)
     unless profile_image.attached?
