@@ -10,17 +10,4 @@
 
 
 <!--ﾕｰｻﾞｰの投稿一覧-->
-
-<% @post_images.each do |post_image| %><!--ﾕｰｻﾞｰの全投稿を順に取り出して格納-->
-<div>
-  <%= link_to post_image_path(post_image.id) do %><!--投稿したものの詳細ページへ-画像クリックすると飛べる->
-    <%= image_tag post_image.get_image %><!--投稿した画像をget_imageﾒｿｯﾄﾞで取得-->
-  <% end %><!--リンク終了-->
-
-  <P>投稿ユーザー画像:<%= image_tag post_image.user.get_profile_image(100,100) %></P>
-  <p>ショップ名： <%= post_image.shop_name %></p>
-  <p>説明： <%= post_image.caption %></p>
-  <P>ユーザーネーム： <%= post_image.user.name %></P>
-  <p><%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id) %></p>
-</div>
-<% end %>
+<%= render 'post_images/list', post_images: @post_images %>
