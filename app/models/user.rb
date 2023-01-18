@@ -4,8 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :post_images, dependent: :destroy#post_imagesﾃｰﾌﾞﾙとｱｿｼｴｰｼｮﾝ
-  has_many :post_comments, dependent: :destroy#コメントﾃｰﾌﾞﾙとｱｿｼｴｰｼｮﾝ
+  has_many :post_images, dependent: :destroy#post_imagesﾓﾃﾞﾙとｱｿｼｴｰｼｮﾝ
+  has_many :post_comments, dependent: :destroy#コメントﾓﾃﾞﾙとｱｿｼｴｰｼｮﾝ
+  has_many :favorites, dependent: :destroy#いいねﾓﾃﾞﾙとｱｿｼｴｰｼｮﾝ
 
 
   has_one_attached :profile_image#profile_imageという名前でｱｸﾃｨﾌﾞｽﾄﾚｰｼﾞでﾌﾟﾛﾌｨﾙ画像保存できる

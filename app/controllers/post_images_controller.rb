@@ -16,6 +16,7 @@ class PostImagesController < ApplicationController
 
   def show
     @post_image = PostImage.find(params[:id])#特定IDのデータを取得
+    @post_comment = PostComment.new#ｺﾒﾝﾄﾓﾃﾞﾙもとに入力フォーム
   end
   
   

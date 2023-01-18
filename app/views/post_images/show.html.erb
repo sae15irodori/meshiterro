@@ -1,19 +1,53 @@
 <div>
   <%= image_tag @post_image.get_image %><!--特定IDの画像を取得-->
-  
-  
+
+
   <p>ショップ名：<%= @post_image.shop_name %></p><!--特定IDの店名を表示-->
-  
+
   <p>説明：<%= @post_image.caption %></p><!--特定IDの説明文を表示-->
-  
+
   <p>投稿ユーザー画像：<%= image_tag @post_image.user.get_profile_image(100,100) %></p>
-  
+
   <p>ユーザーネーム：<%= @post_image.user.name %></p><!--特定IDと結びつくuserモデルのnameカラムを表示-->
- 
+
   <p>投稿日時：<%= @post_image.created_at.strftime('%Y/%m/%d') %></p>
-  
-  
+
+
   <% if @post_image.user == current_user %><!--もし投稿者がﾛｸﾞｲﾝ中のﾕｰｻﾞｰだったら-->
     <%= link_to "削除", post_image_path(@post_image.id), method: :delete %>
+  <% end %>
+</div>
+
+<div>
+  <p>コメント件数：<%= @post_image.post_comments.count %></p><!--ｺﾒﾝﾄﾃｰﾌﾞﾙにある特定の投稿のｺﾒﾝﾄ数を数えてる-->
+  <% @post_image.post_comments.each do |post_comment| %><!--特定の投稿のｺﾒﾝﾄを順に取り出して格納-->
+    <p><%= image_tag post_comment.user.get_profile_image(100,100) %></p><!--ｺﾒﾝﾄﾓﾃﾞﾙからﾕｰｻﾞｰモデル呼び出してﾒｿｯﾄﾞ使用-->
+    <%= post_comment.user.name %><!--投稿にコメントした人の名前(ﾕｰｻﾞｰﾓﾃﾞﾙ?から名前を取得-->
+    <%= post_comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %><!--日時を表示、ｺﾒﾝﾄﾓﾃﾞﾙからｺﾒﾝﾄを取得-->
+
+    <% if post_comment.user == current_user %>
+      <%= link_to "削除", post_image_post_comment_path(post_comment.post_image, post_comment), method: :delete %>
+    <% end %>
+  <% end %>
+  
+  <% if @post_image.favorited_by?(current_user) %>
+    <p>
+      <%= link_to post_image_favorites_path(@post_image), method: :delete do %>
+        ♥<%= @post_image.favorites.count %> いいね
+      <% end %>
+    </p>
+    <% else %>
+    <p>
+      <%= link_to post_image_favorites_path(@post_image), method: :post do %>
+        ♡<%= @post_image.favorites.count %> いいね
+      <% end %>
+    </p>
+  <% end %>
+</div>
+
+<div>
+  <%= form_with model: [@post_image, @post_comment] do |f| %><!--ｺﾒﾝﾄはpost_imageに結び付いてるから２つ書く-->
+    <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+    <%= f.submit "送信する" %>
   <% end %>
 </div>
