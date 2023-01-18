@@ -6,7 +6,7 @@ class PostImagesController < ApplicationController
   def create#保存(登録)機能
     @post_image = PostImage.new(post_image_params)#ﾌｫﾑに入力したﾃﾞｰﾀ(ﾊﾟﾗﾒｰﾀで指定した)を取得
     @post_image.user_id = current_user.id
-    #
+    #バリデーション
     if @post_image.save#対象カラムに保存出来たら
       redirect_to post_images_path#一覧ぺーしに飛ぶ
     else#対象カラムにﾃﾞｰﾀ保存されなかったら
@@ -15,7 +15,8 @@ class PostImagesController < ApplicationController
   end
 
   def index
-    @post_images = PostImage.all#モデルの全てのレコードを取得
+    #@post_images = PostImage.all#モデルの全てのレコードを取得
+    @post_images = PostImage.page(params[:page])#1ページ分決められた数のデータだけを、新しい順に取得できる
   end
 
   def show

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])#特定IDユーザーのレコード取得
-    @post_images = @user.post_images#そのﾕｰｻﾞｰの投稿全て取得
+    @post_images = @user.post_images.page(params[:page])#そのﾕｰｻﾞｰに関連づいた投稿内容取得
   end
 
   def edit#ユーザー情報の編集をする
